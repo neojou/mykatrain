@@ -16,11 +16,22 @@ from mylittlego.core.constants import (
     VERSION,
 )
 
+# icon
+from mylittlego.core.utils import find_package_resource, PATHS
+from kivy.config import Config
+from kivy.utils import platform
+
+ICON = find_package_resource("mylittlego/img/icon.ico")
+Config.set("kivy", "window_icon", ICON)
+
+
 class MyLittleGo(MDApp):
     def __init__(self):
         super().__init__()
 
     def build(self):
+        self.icon = ICON
+
         self.title = f"{PROGRAM} v{VERSION}"
         self.theme_cls.theme_style = "Dark"
         screen = MDScreen()
