@@ -1,12 +1,47 @@
 #:kivy 1.11.0
-<MyButton@Button>:
-    color: .8,.9,0,1
-    font_size: 32
-    size: 100, 50
 
-<MyLittleGoGui>
-    Button:
-        text: 'Hello World!'
-        pos: root.x, root.top - self.height      
+<ContentNavigationDrawer>:
+    orientation: "vertical"
+    padding: "8dp"
+    spacing: "8dp"
 
+    MDLabel:
+        text: "My Little GO"
+        font_style: "Button"
+        size_hint_y: None
+        height: self.texture_size[1]
+
+    MDLabel:
+        text: "neojou.com"
+        font_style: "Caption"
+        size_hint_y: None
+        height: self.texture_size[1]
+
+    ScrollView:
+
+        DrawerList:
+            id: md_list
+
+<MyLittleGoGui>:
+    MDNavigationLayout:
+        ScreenManager:
+
+            MDScreen:
+                id: screen_manager
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    MDToolbar:
+                        title: "My Little Go"
+                        elevation: 10
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state('toggle')]]
+
+                    Widget:
+
+        MDNavigationDrawer:
+            id: nav_drawer
+
+            ContentNavigationDrawer:
+                screen_manager: screen_manager
+                nav_drawer: nav_drawer
 
