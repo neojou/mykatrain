@@ -3,6 +3,7 @@ import os
 import kivy
 kivy.require("2.0.0")
 
+from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivy.uix.widget import Widget
 from kivymd.app import MDApp
@@ -25,7 +26,10 @@ ICON = find_package_resource("mylittlego/img/icon.ico")
 Config.set("kivy", "window_icon", ICON)
 
 
-class MyLittleGo(MDApp):
+class MyLittleGoGui(Screen):
+    pass
+
+class MyLittleGoApp(MDApp):
     def __init__(self):
         super().__init__()
 
@@ -34,18 +38,16 @@ class MyLittleGo(MDApp):
 
         self.title = f"{PROGRAM} v{VERSION}"
         self.theme_cls.theme_style = "Dark"
-        screen = MDScreen()
-        screen.add_widget(
-            MDRectangleFlatButton(
-                text="Hello, World",
-                pos_hint={"center_x": 0.5, "center_y": 0.5},
-            )
-        )
-        return screen
+
+        kv_file = find_package_resource("mylittlego/gui.kv")
+        Builder.load_file(kv_file)
+
+        self.gui = MyLittleGoGui()
+        return self.gui
 
 
 def run_app():
-    app = MyLittleGo()
+    app = MyLittleGoApp()
     app.run()
 
 if __name__ == "__main__":
